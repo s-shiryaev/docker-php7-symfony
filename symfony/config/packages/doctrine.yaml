@@ -1,0 +1,35 @@
+doctrine:
+    dbal:
+        # configure these for your database server
+        driver: 'pdo_postgres'
+        server_version: '12.2'
+        charset: utf8
+        default_table_options:
+            charset: utf8
+            collate: utf8_unicode_ci
+        url: '%env(resolve:DATABASE_URL)%'
+    orm:
+        entity_managers:
+            default:
+                second_level_cache:
+                    enabled: true
+                    region_cache_driver:
+                        type: service
+                        id: snc_second_level_cache
+                    region_lifetime: 86400 # does not affect entities without a region, bug?
+                    regions:
+                        PaymentRegion:
+                            cache_driver:
+                                type: service
+                                id: snc_second_level_cache
+                            lifetime: 86400
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                auto_mapping: true
+                mappings:
+                    App:
+                        is_bundle: false
+                        type: annotation
+                        dir: '%kernel.project_dir%/src/Entity'
+                        prefix: 'App\Entity'
+                        alias: App
+        auto_generate_proxy_classes: true

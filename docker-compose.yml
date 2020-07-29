@@ -31,6 +31,13 @@ services:
             - php
         volumes:
             - ./logs/nginx:/var/log/nginx
+    redis:
+        container_name: redis
+        image: redis:alpine
+        ports:
+            - 6379:6379
+        networks:
+            - redis
     adminer:
         image: adminer:latest
         ports:

@@ -16,12 +16,12 @@ before_install:
 install:
   - docker-compose up -d
   - docker exec php-fpm  composer --no-interaction install
-#  - docker exec php-fpm  php bin/console --no-interaction doctrine:migrations:migrate
-#  - docker exec php-fpm  php bin/console --no-interaction --env=test doctrine:migrations:migrate
+  - docker exec php-fpm  php bin/console --no-interaction doctrine:migrations:migrate
+  - docker exec php-fpm  php bin/console --no-interaction --env=test doctrine:migrations:migrate
 
 script:
   - docker-compose ps
-#  - docker exec php-fpm  php bin/phpunit --coverage-clover=coverage.xml
+  - docker exec php-fpm  php bin/phpunit --coverage-clover=coverage.xml
 
 after_script:
 #  - docker cp php-fpm:/var/www/symfony/coverage.xml shared
