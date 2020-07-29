@@ -20,6 +20,7 @@ services:
         networks:
             - db
             - php
+            - redis
     nginx:
         container_name: nginx
         build: ./nginx
@@ -47,3 +48,4 @@ services:
 networks:
     db:
     php:
+    redis:
