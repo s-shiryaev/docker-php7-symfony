@@ -1,0 +1,42 @@
+version: '3.7'
+services:
+    db:
+        container_name: db
+        build: ./postgres
+        environment:
+            POSTGRES_PASSWORD: example
+        networks:
+            - db
+    php:
+        container_name: php-fpm
+        build: ./php7-fpm
+        ports:
+            - 9000:9000
+        volumes:
+            - ./symfony:/var/www/symfony
+            - ./logs/symfony:/var/www/symfony/var/log
+        depends_on: 
+            - db
+        networks:
+            - db
+            - php
+    nginx:
+        container_name: nginx
+        build: ./nginx
+        ports:
+            - 80:80
+        depends_on: 
+            - php
+        networks:
+            - php
+        volumes:
+            - ./logs/nginx:/var/log/nginx
+    adminer:
+        image: adminer:latest
+        ports:
+            - 8080:8080
+        networks:
+            - db
+networks:
+    db:
+    php:

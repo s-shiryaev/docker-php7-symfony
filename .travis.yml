@@ -1,0 +1,29 @@
+language: php
+
+services:
+  - docker
+
+env:
+  - DOCKER_COMPOSE_VERSION=1.24.1
+
+before_install:
+  - mkdir shared
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+
+install:
+  - docker-compose up -d
+  - docker exec php-fpm  composer --no-interaction install
+#  - docker exec php-fpm  php bin/console --no-interaction doctrine:migrations:migrate
+#  - docker exec php-fpm  php bin/console --no-interaction --env=test doctrine:migrations:migrate
+
+script:
+  - docker-compose ps
+#  - docker exec php-fpm  php bin/phpunit --coverage-clover=coverage.xml
+
+after_script:
+#  - docker cp php-fpm:/var/www/symfony/coverage.xml shared
+#  - bash <(curl -s https://codecov.io/bash)
+  - docker-compose stop

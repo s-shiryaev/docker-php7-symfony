@@ -1,0 +1,4 @@
+CREATE DATABASE docker;
+GRANT ALL PRIVILEGES ON DATABASE docker TO postgres;
+CREATE DATABASE docker_test;
+GRANT ALL PRIVILEGES ON DATABASE docker_test TO postgres;
