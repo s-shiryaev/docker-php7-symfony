@@ -32,6 +32,7 @@ services:
             - php
         volumes:
             - ./logs/nginx:/var/log/nginx
+            - ./symfony/public:/var/www/symfony/public
     redis:
         container_name: redis
         image: redis:alpine
