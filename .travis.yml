@@ -6,7 +6,13 @@ services:
 env:
   - DOCKER_COMPOSE_VERSION=1.24.1
 
+cache:
+  directories:
+    - docker_images
+
 before_install:
+  - echo "$DOCKER_KEY" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker load -i docker_images/images.tar || true
   - mkdir shared
   - sudo rm /usr/local/bin/docker-compose
   - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
@@ -27,3 +33,6 @@ after_script:
 #  - docker cp php-fpm:/var/www/symfony/coverage.xml shared
 #  - bash <(curl -s https://codecov.io/bash)
   - docker-compose stop
+
+before_cache:
+  - docker save -o docker_images/images.tar $(docker images -a -q)
