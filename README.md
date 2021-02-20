@@ -1,7 +1,7 @@
 # Docker Symfony (Nginx, Postgres, Redis, PHP-FPM)
 A docker multicontainer with nginx, postgres, redis and a preconfigured symfony project.
 
-[![Build Status](https://travis-ci.com/MrSmile2114/docker-php7-symfony.svg?branch=master)](https://travis-ci.com/MrSmile2114/docker-php7-symfony)
+[![Build Status](https://travis-ci.com/s-shiryaev/docker-php7-symfony.svg?branch=master)](https://travis-ci.com/s-shiryaev/docker-php7-symfony)
 
 ## Installation
 1. Build/run containers with (with and without detached mode)
